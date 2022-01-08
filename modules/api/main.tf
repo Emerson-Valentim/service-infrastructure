@@ -13,6 +13,7 @@ module "cloudwatch" {
   source = "../../resources/cloudwatch"
 
   name = "/aws/lambda/${var.service}-api-${var.env}"
+  env  = var.env
 }
 
 resource "aws_iam_role" "iam_for_lambda" {

@@ -25,6 +25,7 @@ module "cloudwatch" {
   source = "../../resources/cloudwatch"
 
   name = local.log_group_name
+  env  = var.env
 }
 module "ecs" {
   source = "../../resources/ecs"
