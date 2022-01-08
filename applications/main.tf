@@ -9,4 +9,8 @@ module "service-1" {
 
   env    = var.env
   region = var.region
+
+  network = module.network
+
+  service = "example-service"
 }
