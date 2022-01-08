@@ -44,7 +44,7 @@ resource "aws_lambda_function" "api_lambda" {
 
   vpc_config {
     subnet_ids         = var.subnet_ids
-    security_group_ids = [var.security_groups.id]
+    security_group_ids = var.security_groups
   }
   environment {
     variables = {
