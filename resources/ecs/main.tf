@@ -1,5 +1,5 @@
 resource "aws_ecs_task_definition" "ecs_task_definition" {
-  family = var.task_family
+  family = "${var.task_family}-${var.env}"
 
   task_role_arn      = var.ecs_role_arn
   execution_role_arn = var.ecs_role_arn
@@ -19,7 +19,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
 }
 
 resource "aws_ecs_service" "ecs_service" {
-  name = var.service_name
+  name = "${var.service_name}-${var.env}"
 
   cluster         = var.cluster.arn
   task_definition = aws_ecs_task_definition.ecs_task_definition.arn
