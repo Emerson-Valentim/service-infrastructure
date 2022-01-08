@@ -21,4 +21,9 @@ variable "security_groups" {
   type    = list(string)
   default = []
 }
+
+variable "env_vars" {
+  type    = any
+  default = {}
+}
   

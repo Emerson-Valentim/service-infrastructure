@@ -1,3 +1,9 @@
+locals {
+  default_env_vars = {
+    VAR = "value"
+  }
+}
+
 resource "aws_ecs_cluster" "cluster" {
   name = "${var.service}-${var.env}"
 
@@ -25,6 +31,8 @@ module "api" {
   subnet_ids = var.network.main-vpc.private_subnets
 
   security_groups = [var.network.main-api-sg.id]
+
+  env_vars = merge(local.default_env_vars)
 }
 
 
@@ -39,6 +47,8 @@ module "consumer" {
   security_groups = [var.network.main-consumer-sg.id]
 
   cluster = aws_ecs_cluster.cluster
+
+  env_vars = merge(local.default_env_vars)
 }
 
 module "worker" {
@@ -52,6 +62,8 @@ module "worker" {
   security_groups = [var.network.main-worker-sg.id]
 
   cluster = aws_ecs_cluster.cluster
+
+  env_vars = merge(local.default_env_vars)
 }
 
 module "notification" {
@@ -65,4 +77,6 @@ module "notification" {
   security_groups = [var.network.main-notification-sg.id]
 
   cluster = aws_ecs_cluster.cluster
+
+  env_vars = merge(local.default_env_vars)
 }

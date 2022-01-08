@@ -1,5 +1,11 @@
 locals {
   log_group_name = "/ecs/${var.service}/consumer"
+  parsed_env_vars = [
+    for key, value in var.env_vars : {
+      name  = key
+      value = value
+    }
+  ]
 }
 
 resource "aws_iam_role" "iam_for_ecs" {
@@ -27,6 +33,7 @@ module "cloudwatch" {
   name = local.log_group_name
   env  = var.env
 }
+
 module "ecs" {
   source = "../../resources/ecs"
 
@@ -42,13 +49,8 @@ module "ecs" {
 
   container_definitions = templatefile("${path.module}/container-definition.json.tpl", {
     cloudwatch_log_group = local.log_group_name,
-    env_vars = jsonencode([
-      {
-        "name" : "NODE_ENV",
-        "value" : "${var.env}"
-      },
-    ]),
-    ecr_image = "",
-    region    = "${var.region}"
+    env_vars             = jsonencode(local.parsed_env_vars),
+    ecr_image            = "",
+    region               = "${var.region}"
   })
 }

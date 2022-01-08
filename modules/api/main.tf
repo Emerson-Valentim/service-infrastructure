@@ -8,7 +8,6 @@ data "archive_file" "dummy" {
   }
 }
 
-
 module "cloudwatch" {
   source = "../../resources/cloudwatch"
 
@@ -48,8 +47,6 @@ resource "aws_lambda_function" "api_lambda" {
     security_group_ids = var.security_groups
   }
   environment {
-    variables = {
-      foo = "bar"
-    }
+    variables = var.env_vars
   }
 }

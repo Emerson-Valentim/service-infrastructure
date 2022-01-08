@@ -26,3 +26,8 @@ variable "cluster" {
   type    = any
   default = {}
 }
+
+variable "env_vars" {
+  type    = map(string)
+  default = {}
+}
