@@ -1,8 +1,8 @@
 resource "aws_ecs_task_definition" "ecs_task_definition" {
   family = var.task_family
 
-  task_role_arn      = "arn:aws:iam::488735367158:role/ecsTaskExecutionRole"
-  execution_role_arn = "arn:aws:iam::488735367158:role/ecsTaskExecutionRole"
+  task_role_arn      = var.ecs_role_arn
+  execution_role_arn = var.ecs_role_arn
 
   network_mode = "awsvpc"
 

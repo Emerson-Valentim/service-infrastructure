@@ -32,3 +32,8 @@ variable "container_definitions" {
   type    = any
   default = {}
 }
+
+variable "ecs_role_arn" {
+  type    = string
+  default = "unset"
+}
