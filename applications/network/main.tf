@@ -54,3 +54,21 @@ resource "aws_security_group" "consumer" {
     Environment = var.env
   }
 }
+
+resource "aws_security_group" "notification" {
+  name   = "notification-${var.env}"
+  vpc_id = module.main-vpc.vpc_id
+
+  tags = {
+    Environment = var.env
+  }
+}
+
+resource "aws_security_group" "worker" {
+  name   = "worker-${var.env}"
+  vpc_id = module.main-vpc.vpc_id
+
+  tags = {
+    Environment = var.env
+  }
+}
