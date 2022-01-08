@@ -26,4 +26,3 @@ variable "cluster" {
   type    = any
   default = {}
 }
-  
