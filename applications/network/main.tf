@@ -20,7 +20,6 @@ resource "aws_security_group" "api" {
   name   = "api-${var.env}"
   vpc_id = module.main-vpc.vpc_id
 
-
   ingress {
     from_port   = 80
     to_port     = 80
@@ -41,6 +40,15 @@ resource "aws_security_group" "api" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Environment = var.env
+  }
+}
+
+resource "aws_security_group" "consumer" {
+  name   = "consumer-${var.env}"
+  vpc_id = module.main-vpc.vpc_id
 
   tags = {
     Environment = var.env
