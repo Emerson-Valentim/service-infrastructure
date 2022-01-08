@@ -1,8 +1,10 @@
 module "api" {
   source = "../../modules/api"
 
-  env    = var.env
-  region = var.region
+  env        = var.env
+  region     = var.region
+  service    = var.service
+  subnet_ids = var.network.main-vpc.private_subnets
 }
 
 module "consumer" {
