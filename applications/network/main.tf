@@ -1,4 +1,4 @@
-module "vpc" {
+module "main-vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = "main-vpc"
@@ -10,6 +10,37 @@ module "vpc" {
 
   enable_nat_gateway = true
   enable_vpn_gateway = true
+
+  tags = {
+    Environment = var.env
+  }
+}
+
+resource "aws_security_group" "api" {
+  name   = "api-${var.env}"
+  vpc_id = module.main-vpc.vpc_id
+
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = module.main-vpc.private_subnets_cidr_blocks
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = module.main-vpc.private_subnets_cidr_blocks
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   tags = {
     Environment = var.env
