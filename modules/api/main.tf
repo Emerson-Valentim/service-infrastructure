@@ -12,7 +12,7 @@ data "archive_file" "dummy" {
 module "cloudwatch" {
   source = "../../resources/cloudwatch"
 
-  name = "${var.service}-api-${var.env}"
+  name = "/aws/lambda/${var.service}-api-${var.env}"
 }
 
 resource "aws_iam_role" "iam_for_lambda" {
