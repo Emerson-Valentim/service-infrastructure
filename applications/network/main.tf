@@ -54,6 +54,20 @@ resource "aws_security_group" "consumer" {
   name   = "consumer-${var.env}"
   vpc_id = module.main-vpc.vpc_id
 
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = {
     Environment = var.env
   }
@@ -63,6 +77,20 @@ resource "aws_security_group" "notification" {
   name   = "notification-${var.env}"
   vpc_id = module.main-vpc.vpc_id
 
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = {
     Environment = var.env
   }
@@ -71,6 +99,20 @@ resource "aws_security_group" "notification" {
 resource "aws_security_group" "worker" {
   name   = "worker-${var.env}"
   vpc_id = module.main-vpc.vpc_id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   tags = {
     Environment = var.env
