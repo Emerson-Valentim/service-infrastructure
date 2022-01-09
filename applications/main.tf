@@ -4,6 +4,11 @@ module "network" {
   region = var.region
 }
 
+module "storage" {
+  source = "./storage"
+  env    = var.env
+}
+
 module "service-1" {
   source = "./example-service"
 
