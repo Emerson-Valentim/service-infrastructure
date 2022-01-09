@@ -47,7 +47,7 @@ module "ecs" {
   ecs_role_arn = aws_iam_role.iam_for_ecs.arn
 
   container_definitions = templatefile("${path.module}/container-definition.json.tpl", {
-    cloudwatch_log_group = local.log_group_name,
+    cloudwatch_log_group = module.cloudwatch.logs.name,
     env_vars             = jsonencode(local.parsed_env_vars),
     ecr_image            = "${var.ecr_url}:${var.service}-worker-${var.env}_latest",
     region               = "${var.region}"
