@@ -13,7 +13,7 @@
           }
         },
         "mountPoints" : [],
-        "name" : "api",
+        "name" : "consumer",
         "volumesFrom" : []
       }
     ]
