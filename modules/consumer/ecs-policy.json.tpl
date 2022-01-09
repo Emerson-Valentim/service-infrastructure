@@ -11,12 +11,11 @@
     },
     {
       "Action": [
-        "ec2:CreateNetworkInterface",
-        "ec2:DescribeNetworkInterfaces",
-        "ec2:DeleteNetworkInterface",
-        "ec2:DescribeSecurityGroups",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeVpcs"
+        "secretsmanager:*",
+        "s3:*",
+        "ecr:*",
+        "ecs:*",
+        "ec2:*"
       ],
       "Resource": "*",
       "Effect": "Allow"

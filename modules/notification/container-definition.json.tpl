@@ -3,7 +3,7 @@
         "cpu" : 0,
         "environment" : ${env_vars},
         "essential" : true,
-        "image" : "${ecr_image}:latest",
+        "image" : "${ecr_image}",
         "logConfiguration" : {
           "logDriver" : "awslogs",
           "options" : {
