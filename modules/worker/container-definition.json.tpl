@@ -14,6 +14,10 @@
         },
         "mountPoints" : [],
         "name" : "worker",
-        "volumesFrom" : []
+        "volumesFrom" : [],
+        "command" : [
+          "yarn",
+          "start:local"
+        ]
       }
     ]

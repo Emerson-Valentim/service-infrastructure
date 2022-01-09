@@ -14,6 +14,10 @@
         },
         "mountPoints" : [],
         "name" : "consumer",
-        "volumesFrom" : []
+        "volumesFrom" : [],
+        "command" : [
+          "yarn",
+          "start:local"
+        ]
       }
     ]

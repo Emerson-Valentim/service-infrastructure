@@ -14,6 +14,10 @@
         },
         "mountPoints" : [],
         "name" : "notification",
-        "volumesFrom" : []
+        "volumesFrom" : [],
+        "command" : [
+          "yarn",
+          "start:local"
+        ]
       }
     ]
