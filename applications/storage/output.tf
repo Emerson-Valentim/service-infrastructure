@@ -1,3 +1,3 @@
 output "main-ecr" {
-  value = aws_ecr_repository.main_ecr_storage.arn
+  value = aws_ecr_repository.main_ecr_storage
 }

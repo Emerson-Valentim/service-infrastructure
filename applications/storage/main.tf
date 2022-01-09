@@ -6,3 +6,9 @@ resource "aws_ecr_repository" "main_ecr_storage" {
     scan_on_push = true
   }
 }
+
+resource "aws_ecr_lifecycle_policy" "expire_policy" {
+  repository = aws_ecr_repository.main_ecr_storage.name
+
+  policy = file("${path.module}/ecr-expire-policy.json")
+}
