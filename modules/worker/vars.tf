@@ -31,3 +31,8 @@ variable "env_vars" {
   type    = map(string)
   default = {}
 }
+
+variable "ecr_url" {
+  type    = string
+  default = "unset"
+}

@@ -49,6 +49,8 @@ module "consumer" {
   cluster = aws_ecs_cluster.cluster
 
   env_vars = merge(local.default_env_vars)
+
+  ecr_url = var.ecr.repository_url
 }
 
 module "worker" {
@@ -64,6 +66,8 @@ module "worker" {
   cluster = aws_ecs_cluster.cluster
 
   env_vars = merge(local.default_env_vars)
+
+  ecr_url = var.ecr.repository_url
 }
 
 module "notification" {
@@ -79,4 +83,6 @@ module "notification" {
   cluster = aws_ecs_cluster.cluster
 
   env_vars = merge(local.default_env_vars)
+
+  ecr_url = var.ecr.repository_url
 }

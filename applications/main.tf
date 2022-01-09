@@ -18,4 +18,6 @@ module "service-1" {
   network = module.network
 
   service = "example-service"
+
+  ecr = module.storage.main-ecr
 }

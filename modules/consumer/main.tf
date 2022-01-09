@@ -50,7 +50,7 @@ module "ecs" {
   container_definitions = templatefile("${path.module}/container-definition.json.tpl", {
     cloudwatch_log_group = local.log_group_name,
     env_vars             = jsonencode(local.parsed_env_vars),
-    ecr_image            = "",
+    ecr_image            = "${var.ecr_url}:${var.service}-consumer-${var.env}_latest",
     region               = "${var.region}"
   })
 }

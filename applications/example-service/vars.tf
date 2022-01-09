@@ -16,3 +16,8 @@ variable "network" {
   type    = any
   default = ""
 }
+
+variable "ecr" {
+  type    = any
+  default = {}
+}
