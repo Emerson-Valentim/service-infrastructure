@@ -26,4 +26,8 @@ variable "env_vars" {
   type    = any
   default = {}
 }
-  
+
+variable "gateway" {
+  type    = any
+  default = {}
+}
