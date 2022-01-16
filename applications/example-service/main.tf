@@ -29,6 +29,7 @@ module "api" {
   region     = var.region
   service    = var.service
   subnet_ids = var.network.main-vpc.private_subnets
+  gateway    = var.gateway
 
   security_groups = [var.network.main-api-sg.id]
 

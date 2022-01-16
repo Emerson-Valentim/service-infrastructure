@@ -17,7 +17,7 @@
         "volumesFrom" : [],
         "command" : [
           "yarn",
-          "start:local"
+          "start:notification"
         ],
         "portMappings" : [
           {

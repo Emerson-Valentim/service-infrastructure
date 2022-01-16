@@ -21,3 +21,8 @@ variable "ecr" {
   type    = any
   default = {}
 }
+
+variable "gateway" {
+  type    = any
+  default = {}
+}

@@ -12,19 +12,14 @@ variable "service" {
   default = "unset"
 }
 
-variable "subnet_ids" {
-  type    = list(string)
-  default = []
+variable "invoke_arn" {
+  default = "unset"
+  type    = string
 }
 
-variable "security_groups" {
-  type    = list(string)
-  default = []
-}
-
-variable "env_vars" {
-  type    = any
-  default = {}
+variable "function_name" {
+  default = "unset"
+  type    = string
 }
 
 variable "gateway" {
