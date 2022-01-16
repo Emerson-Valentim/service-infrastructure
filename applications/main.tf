@@ -17,7 +17,7 @@ module "service-1" {
 
   network = module.network
 
-  service = "example-service"
+  service = "event-boilerplate"
 
   ecr = module.storage.main-ecr
 }
