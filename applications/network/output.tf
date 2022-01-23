@@ -21,3 +21,11 @@ output "main-worker-sg" {
 output "main-kafka-sg" {
   value = aws_security_group.kafka
 }
+
+output "main-worker-redis-sg" {
+  value = aws_security_group.worker-redis
+}
+
+output "main-socket-redis-sg" {
+  value = aws_security_group.socket-redis
+}

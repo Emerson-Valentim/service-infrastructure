@@ -3,6 +3,21 @@ locals {
     NODE_ENV   = var.env
     KAFKA_HOST = var.kafka.main.bootstrap_brokers_tls
   }
+
+  consumer_env_vars = {
+    REDIS_HOST = var.redis.worker.primary_endpoint_address
+    REDIS_PORT = 6379
+  }
+
+  worker_env_vars = {
+    REDIS_HOST = var.redis.worker.primary_endpoint_address
+    REDIS_PORT = 6379
+  }
+
+  notification_env_vars = {
+    REDIS_HOST = var.redis.socket.primary_endpoint_address
+    REDIS_PORT = 6379
+  }
 }
 
 resource "aws_ecs_cluster" "cluster" {
@@ -50,7 +65,7 @@ module "consumer" {
 
   cluster = aws_ecs_cluster.cluster
 
-  env_vars = merge(local.default_env_vars)
+  env_vars = merge(local.default_env_vars, local.consumer_env_vars)
 
   ecr_url = var.ecr.repository_url
 }
@@ -67,7 +82,7 @@ module "worker" {
 
   cluster = aws_ecs_cluster.cluster
 
-  env_vars = merge(local.default_env_vars)
+  env_vars = merge(local.default_env_vars, local.worker_env_vars)
 
   ecr_url = var.ecr.repository_url
 }
@@ -84,7 +99,7 @@ module "notification" {
 
   cluster = aws_ecs_cluster.cluster
 
-  env_vars = merge(local.default_env_vars)
+  env_vars = merge(local.default_env_vars, local.notification_env_vars)
 
   ecr_url = var.ecr.repository_url
 }
