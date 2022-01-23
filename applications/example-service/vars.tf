@@ -31,3 +31,8 @@ variable "kafka" {
   type    = any
   default = {}
 }
+
+variable "redis" {
+  type    = any
+  default = {}
+}
