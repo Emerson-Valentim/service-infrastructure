@@ -20,6 +20,17 @@ resource "aws_api_gateway_integration" "main" {
   uri                     = var.invoke_arn
 }
 
+resource "aws_api_gateway_deployment" "main" {
+  rest_api_id = var.gateway.id
+  stage_name  = var.env
+}
+
+resource "aws_api_gateway_base_path_mapping" "main" {
+  api_id      = var.gateway.id
+  stage_name  = aws_api_gateway_deployment.main.stage_name
+  domain_name = var.gateway.domain_name
+}
+
 resource "aws_lambda_permission" "apigw_lambda" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
