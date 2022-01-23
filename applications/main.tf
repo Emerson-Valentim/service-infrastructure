@@ -20,6 +20,13 @@ module "api-gateway" {
   dns    = module.dns
 }
 
+module "kafka" {
+  source  = "./kafka"
+  env     = var.env
+  network = module.network
+  dns     = module.dns
+}
+
 module "service-1" {
   source  = "./example-service"
   service = "event-boilerplate"
@@ -30,4 +37,5 @@ module "service-1" {
   gateway = module.api-gateway
   network = module.network
   ecr     = module.storage.main-ecr
+  kafka   = module.kafka
 }
