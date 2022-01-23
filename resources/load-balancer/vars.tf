@@ -12,32 +12,27 @@ variable "service" {
   default = "unset"
 }
 
-variable "network" {
+variable "subnets" {
   type    = any
   default = {}
 }
 
-variable "ecr" {
-  type    = any
-  default = {}
+variable "security_groups" {
+  type    = list(string)
+  default = []
 }
 
-variable "gateway" {
-  type    = any
-  default = {}
-}
-
-variable "kafka" {
-  type    = any
-  default = {}
-}
-
-variable "redis" {
-  type    = any
-  default = {}
+variable "vpc_id" {
+  type    = string
+  default = "unset"
 }
 
 variable "dns" {
   type    = any
   default = {}
+}
+
+variable "health-check-port" {
+  type    = number
+  default = 80
 }

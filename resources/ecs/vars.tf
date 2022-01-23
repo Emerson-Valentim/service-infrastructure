@@ -37,3 +37,22 @@ variable "ecs_role_arn" {
   type    = string
   default = "unset"
 }
+
+variable "load-balancer" {
+  type = object({
+    target-group-arn = string
+    container-name   = string
+    container-port   = number
+  })
+
+  default = {
+    target-group-arn = ""
+    container-name   = ""
+    container-port   = 0
+  }
+}
+
+variable "dns" {
+  type    = any
+  default = {}
+}

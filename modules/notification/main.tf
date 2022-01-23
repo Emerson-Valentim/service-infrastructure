@@ -1,5 +1,5 @@
 locals {
-  log_group_name = "/ecs/${var.service}-notification"
+  log_group_name = "/aws/ecs/${var.service}-notification"
   parsed_env_vars = [
     for key, value in var.env_vars : {
       name  = key
@@ -33,6 +33,19 @@ module "cloudwatch" {
   name = local.log_group_name
   env  = var.env
 }
+
+module "load_balancer" {
+  source = "../../resources/load-balancer"
+
+  env               = var.env
+  security_groups   = var.security_groups
+  subnets           = var.public_subnet_ids
+  service           = "${var.service}-notification"
+  vpc_id            = var.vpc_id
+  dns               = var.dns
+  health-check-port = 3000
+}
+
 module "ecs" {
   source = "../../resources/ecs"
 
@@ -43,6 +56,13 @@ module "ecs" {
 
   security_groups = var.security_groups
   subnets         = var.subnet_ids
+  dns             = var.dns
+
+  load-balancer = {
+    target-group-arn = module.load_balancer.target_group_arn
+    container-port   = 3000
+    container-name   = "notification"
+  }
 
   ecs_role_arn = aws_iam_role.iam_for_ecs.arn
 

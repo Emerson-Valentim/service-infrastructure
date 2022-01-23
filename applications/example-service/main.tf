@@ -5,13 +5,17 @@ locals {
   }
 
   consumer_env_vars = {
-    REDIS_HOST = var.redis.worker.primary_endpoint_address
-    REDIS_PORT = 6379
+    REDIS_HOST  = var.redis.worker.primary_endpoint_address
+    REDIS_PORT  = 6379
+    SOCKET_HOST = module.notification.domain
+    SOCKET_PORT = 443
   }
 
   worker_env_vars = {
-    REDIS_HOST = var.redis.worker.primary_endpoint_address
-    REDIS_PORT = 6379
+    REDIS_HOST  = var.redis.worker.primary_endpoint_address
+    REDIS_PORT  = 6379
+    SOCKET_HOST = module.notification.domain
+    SOCKET_PORT = 443
   }
 
   notification_env_vars = {
@@ -90,10 +94,13 @@ module "worker" {
 module "notification" {
   source = "../../modules/notification"
 
-  env        = var.env
-  region     = var.region
-  service    = var.service
-  subnet_ids = var.network.main-vpc.private_subnets
+  env               = var.env
+  region            = var.region
+  service           = var.service
+  subnet_ids        = var.network.main-vpc.private_subnets
+  public_subnet_ids = var.network.main-vpc.public_subnets
+  vpc_id            = var.network.main-vpc.vpc_id
+  dns               = var.dns
 
   security_groups = [var.network.main-notification-sg.id]
 
