@@ -118,3 +118,26 @@ resource "aws_security_group" "worker" {
     Environment = var.env
   }
 }
+
+resource "aws_security_group" "kafka" {
+  name   = "kafka-${var.env}"
+  vpc_id = module.main-vpc.vpc_id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = module.main-vpc.private_subnets_cidr_blocks
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Environment = var.env
+  }
+}

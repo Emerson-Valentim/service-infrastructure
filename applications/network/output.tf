@@ -17,3 +17,7 @@ output "main-notification-sg" {
 output "main-worker-sg" {
   value = aws_security_group.worker
 }
+
+output "main-kafka-sg" {
+  value = aws_security_group.kafka
+}
