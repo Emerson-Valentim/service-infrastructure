@@ -14,7 +14,7 @@ variable "service" {
 
 variable "network" {
   type    = any
-  default = ""
+  default = {}
 }
 
 variable "ecr" {
@@ -23,6 +23,11 @@ variable "ecr" {
 }
 
 variable "gateway" {
+  type    = any
+  default = {}
+}
+
+variable "kafka" {
   type    = any
   default = {}
 }

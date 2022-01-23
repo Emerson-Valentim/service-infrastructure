@@ -1,6 +1,7 @@
 locals {
   default_env_vars = {
-    VAR = "value"
+    NODE_ENV   = var.env
+    KAFKA_HOST = var.kafka.main.bootstrap_brokers_tls
   }
 }
 
