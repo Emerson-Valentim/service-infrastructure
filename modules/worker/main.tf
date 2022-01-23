@@ -1,5 +1,5 @@
 locals {
-  log_group_name = "/ecs/${var.service}/worker"
+  log_group_name = "/ecs/${var.service}-worker"
   parsed_env_vars = [
     for key, value in var.env_vars : {
       name  = key

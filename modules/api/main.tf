@@ -11,7 +11,7 @@ data "archive_file" "dummy" {
 module "cloudwatch" {
   source = "../../resources/cloudwatch"
 
-  name = "/aws/lambda/${var.service}/api"
+  name = "/aws/lambda/${var.service}-api"
   env  = var.env
 }
 
@@ -52,7 +52,7 @@ resource "aws_lambda_function" "api_lambda" {
 }
 
 module "api-gateway" {
-  source        = "../../resources/graphql-gateway-trigger"
+  source        = "../../resources/http-gateway-trigger"
   region        = var.region
   service       = var.service
   env           = var.env
