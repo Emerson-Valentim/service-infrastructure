@@ -23,6 +23,11 @@ resource "aws_api_gateway_integration" "main" {
 resource "aws_api_gateway_deployment" "main" {
   rest_api_id = var.gateway.id
   stage_name  = var.env
+
+  depends_on = [
+    aws_api_gateway_method.main,
+    aws_api_gateway_integration.main
+  ]
 }
 
 resource "aws_api_gateway_base_path_mapping" "main" {
