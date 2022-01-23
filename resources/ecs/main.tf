@@ -31,6 +31,15 @@ resource "aws_ecs_service" "ecs_service" {
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 100
 
+  dynamic "load_balancer" {
+    for_each = length(var.load-balancer.target-group-arn) > 0 ? [1] : []
+    content {
+      target_group_arn = var.load-balancer.target-group-arn
+      container_name   = var.load-balancer.container-name
+      container_port   = var.load-balancer.container-port
+    }
+  }
+
   deployment_controller {
     type = "ECS"
   }

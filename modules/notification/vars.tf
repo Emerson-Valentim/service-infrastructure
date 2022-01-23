@@ -17,6 +17,11 @@ variable "subnet_ids" {
   default = []
 }
 
+variable "public_subnet_ids" {
+  type    = list(string)
+  default = []
+}
+
 variable "security_groups" {
   type    = list(string)
   default = []
@@ -35,4 +40,14 @@ variable "env_vars" {
 variable "ecr_url" {
   type    = string
   default = "unset"
+}
+
+variable "vpc_id" {
+  type    = string
+  default = "unset"
+}
+
+variable "dns" {
+  type    = any
+  default = {}
 }

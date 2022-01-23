@@ -45,4 +45,5 @@ module "service-1" {
   ecr     = module.storage.main-ecr
   redis   = module.storage.redis
   kafka   = module.kafka
+  dns     = module.dns
 }

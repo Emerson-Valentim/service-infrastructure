@@ -36,3 +36,8 @@ variable "redis" {
   type    = any
   default = {}
 }
+
+variable "dns" {
+  type    = any
+  default = {}
+}
