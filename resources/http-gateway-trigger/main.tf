@@ -36,11 +36,71 @@ resource "aws_api_gateway_base_path_mapping" "main" {
   domain_name = var.gateway.domain_name
 }
 
-resource "aws_lambda_permission" "apigw_lambda" {
-  statement_id  = "AllowExecutionFromAPIGateway"
+resource "aws_api_gateway_method" "cors" {
+  rest_api_id   = var.gateway.id
+  resource_id   = aws_api_gateway_resource.main.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "cors" {
+  rest_api_id          = var.gateway.id
+  resource_id          = aws_api_gateway_resource.main.id
+  http_method          = aws_api_gateway_method.cors.http_method
+  type                 = "MOCK"
+  passthrough_behavior = "WHEN_NO_MATCH"
+
+  request_templates = {
+    "application/json" = jsonencode({
+      statusCode = 200
+    })
+  }
+}
+
+resource "aws_api_gateway_method_response" "cors" {
+  rest_api_id = var.gateway.id
+  resource_id = aws_api_gateway_resource.main.id
+  http_method = aws_api_gateway_method.cors.http_method
+  status_code = "200"
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+}
+
+resource "aws_api_gateway_integration_response" "cors" {
+  rest_api_id = var.gateway.id
+  resource_id = aws_api_gateway_resource.main.id
+  http_method = aws_api_gateway_method.cors.http_method
+  status_code = aws_api_gateway_method_response.cors.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,POST'",
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
+  }
+}
+
+resource "aws_lambda_permission" "apigw_lambda_post" {
+  statement_id  = "AllowExecutionFromAPIGatewayPost"
   action        = "lambda:InvokeFunction"
   function_name = var.function_name
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${var.gateway.execution_arn}/*/${aws_api_gateway_method.main.http_method}/${var.service}"
+}
+
+resource "aws_lambda_permission" "apigw_lambda_options" {
+  statement_id  = "AllowExecutionFromAPIGatewayOptions"
+  action        = "lambda:InvokeFunction"
+  function_name = var.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${var.gateway.execution_arn}/*/${aws_api_gateway_method.cors.http_method}/${var.service}"
 }
