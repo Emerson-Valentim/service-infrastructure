@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "${var.region}-1"
+  region = var.region
 }
 
 module "applications" {

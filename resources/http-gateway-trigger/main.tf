@@ -85,6 +85,8 @@ resource "aws_api_gateway_integration_response" "cors" {
     "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,POST'",
     "method.response.header.Access-Control-Allow-Origin"  = "'*'"
   }
+
+  depends_on = [aws_api_gateway_integration.cors]
 }
 
 resource "aws_lambda_permission" "apigw_lambda_post" {
@@ -94,13 +96,4 @@ resource "aws_lambda_permission" "apigw_lambda_post" {
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${var.gateway.execution_arn}/*/${aws_api_gateway_method.main.http_method}/${var.service}"
-}
-
-resource "aws_lambda_permission" "apigw_lambda_options" {
-  statement_id  = "AllowExecutionFromAPIGatewayOptions"
-  action        = "lambda:InvokeFunction"
-  function_name = var.function_name
-  principal     = "apigateway.amazonaws.com"
-
-  source_arn = "${var.gateway.execution_arn}/*/${aws_api_gateway_method.cors.http_method}/${var.service}"
 }
